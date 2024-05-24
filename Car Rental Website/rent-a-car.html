@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent a Car</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #fe5b3d;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        #car-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .car {
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+
+        .car h2 {
+            margin-top: 0;
+        }
+
+        .car p {
+            margin: 10px 0;
+        }
+
+        .services {
+            background-color: #f4f4f4;
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .heading span {
+            color: #fe5b3d;
+            font-size: 25px;
+        }
+
+        .heading h1 {
+            margin-top: 20px;
+            font-size: 35px;
+        }
+
+        .services-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .box {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 20px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .box-img img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .box h3 {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        .box h2 {
+            margin: 10px 0;
+            font-size: 25px;
+            color: #fe5b3d;
+        }
+
+        .box h2 span {
+            font-size: 18px;
+            color: #aaa;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #fe5b3d;
+            color: #fff;
+            padding: 10px 20px;
+            margin-top: 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #fe5b3d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Rent a Car</h1>
+    </header>
+    <main>
+        <section id="car-list">
+        </section>
+        <section class="services" id="services">
+            <div class="heading">
+                <span>Best Services</span>
+                <h1>Explore Our Top Deals <br> From Top Rated Dealers</h1>
+            </div>
+            <div class="services-container">
+                <div class="box">
+                    <div class="box-img">
+                        <img src="img/car1.jpg" alt="">
+                    </div>
+                    <p>2024</p>
+                    <h3>2020 Honda Civic</h3>
+                    <h2>$58500 | $358 <span>/month</span></h2>
+                    <a href="dashboard.html" class="btn">Rent Now</a>
+                </div>
+                <div class="box">
+                    <div class="box-img">
+                        <img src="img/car2.jpg" alt="">
+                    </div>
+                    <p>2024</p>
+                    <h3>2019 Honda Civic</h3>
+                    <h2>$58500 | $358 <span>/month</span></h2>
+                    <a href="dashboard.html" class="btn">Rent Now</a>
+                </div>
+                <div class="box">
+                    <div class="box-img">
+                        <img src="img/car3.jpg" alt="">
+                    </div>
+                    <p>2024</p>
+                    <h3>2021 Honda Civic</h3>
+                    <h2>$58500 | $358 <span>/month</span></h2>
+                    <a href="dashboard.html" class="btn">Rent Now</a>
+                </div>
+                <div class="box">
+                    <div class="box-img">
+                        <img src="img/car4.jpg" alt="">
+                    </div>
+                    <p>2024</p>
+                    <h3>2022 Honda Civic</h3>
+                    <h2>$58500 | $358 <span>/month</span></h2>
+                    <a href="dashboard.html" class="btn">Rent Now</a>
+                </div>
+                <div class="box">
+                    <div class="box-img">
+                        <img src="img/car5.jpg" alt="">
+                    </div>
+                    <p>2024</p>
+                    <h3>2018 Honda Civic</h3>
+                    <h2>$58500 | $358 <span>/month</span></h2>
+                    <a href="dashboard.html" class="btn">Rent Now</a>
+                </div>
+                <div class="box">
+                    <div class="box-img">
+                        <img src="img/car6.jpg" alt="">
+                    </div>
+                    <p>2024</p>
+                    <h3>2017 Honda Civic</h3>
+                    <h2>$58500 | $358 <span>/month</span></h2>
+                    <a href="dashboard.html" class="btn">Rent Now</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cars = [
+                { make: "Toyota", model: "Corolla", price: 50, available: true },
+                { make: "Honda", model: "Civic", price: 60, available: false },
+                { make: "Ford", model: "Focus", price: 55, available: true },
+            ];
+
+            const carList = document.getElementById("car-list");
+
+            function displayCars() {
+                carList.innerHTML = "";
+                cars.forEach(car => {
+                    const carElement = document.createElement("div");
+                    carElement.classList.add("car");
+                    carElement.innerHTML = `
+                        <h2>${car.make} ${car.model}</h2>
+                        <p>Price: $${car.price}/day</p>
+                        <p>${car.available ? "Available" : "Not Available"}</p>
+                    `;
+                    carList.appendChild(carElement);
+                });
+            }
+
+            displayCars();
+        });
+    </script>
+</body>
+</html>

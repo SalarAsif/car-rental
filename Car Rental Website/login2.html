@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Car Rental</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .login {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            max-width: 400px; 
+        }
+
+        .login h2 {
+            color: #ff6600;
+            margin-bottom: 20px;
+        }
+
+        .login form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-box {
+            margin-bottom: 20px;
+            width: 100%; 
+        }
+
+        .input-box span {
+            display: block;
+            color: #333;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        .input-box input[type="email"],
+        .input-box input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            background-color: #ff6600;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 50%;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #fe5d3d;
+        }
+
+        p {
+            margin-top: 20px;
+            color: #555;
+        }
+
+        p a {
+            color: #fe5d3d;
+            text-decoration: none;
+        }
+
+        p a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <section class="login">
+            <form id="loginForm">
+                <div class="input-box">
+                    <span>Email</span>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="input-box">
+                    <span>Password</span>
+                    <input type="password" id="password" required>
+                </div>
+                <input type="submit" class="btn" value="Login">
+                <p>Don't have an account? <a href="register.html">Register</a></p>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const user = JSON.parse(localStorage.getItem(email));
+            if (user && user.password === password) {
+                sessionStorage.setItem('loggedInUser', email);
+                alert('Login successful!');
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Invalid email or password.');
+            }
+        });
+    </script>
+</body>
+</html>

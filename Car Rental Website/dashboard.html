@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Car Rental</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        header .logo img {
+            width: 50px;
+        }
+        header .navbar {
+            display: flex;
+            list-style: none;
+        }
+        header .navbar li {
+            margin: 0 10px;
+        }
+        header .navbar a {
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        header .navbar a:hover {
+            background-color: #eaeaea;
+        }
+        .dashboard {
+            max-width: 1200px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .heading {
+            padding: 10px;
+            text-align: center;
+        }
+        .tab-menu {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+        .tab-menu button {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+        .tab {
+            display: none;
+            padding: 20px;
+            animation: fadeIn 0.5s;
+        }
+        .tab.active {
+            display: block;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .input-box {
+            margin-bottom: 15px;
+        }
+        .input-box span {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .input-box input,
+        .input-box select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .reservations-container {
+            padding: 20px;
+        }
+        .reservation-list .reservation {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Light Theme */
+        .light-theme {
+            background-color: #ffffff;
+            color: #333;
+        }
+        .light-theme header {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        .light-theme .navbar a {
+            color: #333; 
+            background-color: #f8f8f8;
+        }
+        .light-theme .heading {
+            background-color: #ff7f50;
+            color: white;
+        }
+        .light-theme .tab-menu {
+            background-color: #f0f0f0;
+        }
+        .light-theme .tab-menu button {
+            color: #ff7f50;
+        }
+        .light-theme .tab-menu button:hover,
+        .light-theme .tab-menu button.active {
+            background-color: #ff7f50;
+            color: white;
+        }
+        .light-theme .btn {
+            background-color: #ff7f50;
+            color: white;
+        }
+        .light-theme .btn:hover {
+            background-color: #e06a45;
+        }
+        .light-theme .reservation-list .reservation {
+            background-color: #f0f0f0;
+        }
+
+        /* Dark Theme */
+        .dark-theme {
+            background-color: #333;
+            color: #f9f9f9;
+        }
+        .dark-theme header {
+            background-color: #444;
+            color: #f9f9f9;
+        }
+        .dark-theme .navbar a {
+            color: #f9f9f9; 
+            background-color: #444;
+        }
+        .dark-theme .heading {
+            background-color: #555;
+            color: white;
+        }
+        .dark-theme .tab-menu {
+            background-color: #555;
+        }
+        .dark-theme .tab-menu button {
+            color: #f9f9f9;
+        }
+        .dark-theme .tab-menu button:hover,
+        .dark-theme .tab-menu button.active {
+            background-color: #777;
+            color: white;
+        }
+        .dark-theme .btn {
+            background-color: #777;
+            color: white;
+        }
+        .dark-theme .btn:hover {
+            background-color: #555;
+        }
+        .dark-theme .reservation-list .reservation {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo"><img src="img/jeep.png" alt="Logo"></a>
+        <ul class="navbar">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="#" id="logout">Logout</a></li>
+        </ul>
+        <button id="themeToggle">Toggle Theme</button>
+    </header>
+
+    <section class="dashboard" id="dashboard">
+        <div class="heading">
+            <h1>User Dashboard</h1>
+        </div>
+        <div class="tab-menu">
+            <button onclick="openTab('reserve')" class="active">Reserve a Car</button>
+            <button onclick="openTab('reservations')">My Reservations</button>
+            <button onclick="openTab('profile')">Profile</button>
+        </div>
+      
+        <div class="tab active" id="reserve">
+            <div class="heading">
+                <h2>Reserve a Car</h2>
+            </div>
+            <div class="form-container">
+                <form id="reserveForm">
+                    <div class="input-box">
+                        <span>Car Model</span>
+                        <select id="carModel" required>
+                            <option value="Honda Civic">Honda Civic</option>
+                            <option value="Toyota Camry">Toyota Camry</option>
+                            <option value="Ford Mustang">Ford Mustang</option>
+                        </select>
+                    </div>
+                    <div class="input-box">
+                        <span>Pick-Up Date</span>
+                        <input type="date" id="pickupDate" required>
+                    </div>
+                    <div class="input-box">
+                        <span>Return Date</span>
+                        <input type="date" id="returnDate" required>
+                    </div>
+                    <input type="submit" class="btn" value="Reserve">
+                </form>
+            </div>
+        </div>
+       
+        <div class="tab" id="reservations">
+            <div class="heading">
+                <h2>My Reservations</h2>
+            </div>
+            <div class="reservations-container">
+                <div class="reservation-list" id="reservationList">
+                   
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab" id="profile">
+            <div class="heading">
+                <h2>Edit Profile</h2>
+            </div>
+            <div class="form-container">
+                <form id="profileForm">
+                    <div class="input-box">
+                        <span>Name</span>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="input-box">
+                        <span>Email</span>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="input-box">
+                        <span>Password</span>
+                        <input type="password" id="password" required>
+                    </div>
+                    <input type="submit" class="btn" value="Update">
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab');
+        const tabButtons = document.querySelectorAll('.tab-menu button');
+
+        function openTab(tabId) {
+            tabs.forEach(tab => tab.classList.remove('active'));
+            tabButtons.forEach(button => button.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`[onclick="openTab('${tabId}')"]`).classList.add('active');
+        }
+
+        const loggedInUserEmail = sessionStorage.getItem('loggedInUser');
+        if (!loggedInUserEmail) {
+            alert('Please log in first.');
+            window.location.href = 'login2.html';
+        }
+        const loggedInUser = JSON.parse(localStorage.getItem(loggedInUserEmail));
+
+        document.getElementById('name').value = loggedInUser.name;
+        document.getElementById('email').value = loggedInUser.email;
+        document.getElementById('password').value = loggedInUser.password;
+
+        const profileForm = document.getElementById('profileForm');
+        profileForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            loggedInUser.name = document.getElementById('name').value;
+            loggedInUser.email = document.getElementById('email').value;
+            loggedInUser.password = document.getElementById('password').value;
+            localStorage.setItem(loggedInUser.email, JSON.stringify(loggedInUser));
+            alert('Profile updated successfully!');
+            sessionStorage.setItem('loggedInUser', loggedInUser.email);
+        });
+
+        const reserveForm = document.getElementById('reserveForm');
+        reserveForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const carModel = document.getElementById('carModel').value;
+            const pickupDate = document.getElementById('pickupDate').value;
+            const returnDate = document.getElementById('returnDate').value;
+            const reservation = { carModel, pickupDate, returnDate };
+            loggedInUser.reservations.push(reservation);
+            localStorage.setItem(loggedInUser.email, JSON.stringify(loggedInUser));
+            alert('Car reserved successfully!');
+            reserveForm.reset();
+            displayReservations();
+        });
+
+        function displayReservations() {
+            const reservationList = document.getElementById('reservationList');
+            reservationList.innerHTML = '';
+            loggedInUser.reservations.forEach(reservation => {
+                const div = document.createElement('div');
+                div.className = 'reservation';
+                div.innerHTML = `
+                    <h3>${reservation.carModel}</h3>
+                    <p>Pick-Up Date: ${reservation.pickupDate}</p>
+                    <p>Return Date: ${reservation.returnDate}</p>
+                `;
+                reservationList.appendChild(div);
+            });
+        }
+
+        displayReservations();
+
+        document.getElementById('logout').addEventListener('click', () => {
+            sessionStorage.removeItem('loggedInUser');
+            window.location.href = 'login2.html';
+        });
+
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            document.body.classList.toggle('light-theme');
+            const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+            localStorage.setItem('theme', currentTheme);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.classList.add(savedTheme === 'dark' ? 'dark-theme' : 'light-theme');
+        });
+    </script>
+</body>
+</html>
